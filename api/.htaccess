@@ -1,0 +1,11 @@
+DirectoryIndex index.php
+
+<Files config.ini>
+Order allow,deny
+deny from all
+</Files>
+
+<Files common.php>
+Order Allow,Deny
+Deny from all
+</Files>

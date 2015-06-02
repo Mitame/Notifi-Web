@@ -1,0 +1,6 @@
+Options -Indexes
+
+<Files LICENSE.md>
+order allow,deny
+deny from all
+</Files>
