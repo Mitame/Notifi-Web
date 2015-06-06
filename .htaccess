@@ -1,6 +1,16 @@
 Options -Indexes
 
 <Files LICENSE.md>
-order allow,deny
-deny from all
+	order allow,deny
+	deny from all
+</Files>
+
+<Files README.md>
+	order allow,deny
+	deny from all
+</Files>
+
+<Files .gitignore>
+	order allow,deny
+	deny from all
 </Files>
