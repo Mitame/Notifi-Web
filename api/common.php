@@ -24,14 +24,14 @@ function serverMessage($msgType,$message){
     sendAsJSON(array(
             'messages'=>array(
                 array(
-                    'msgID'=>-1,
                     'msgFrom'=>'Server',
                     'msgType'=>$msgType,
                     'message'=>$message,
                     'sig'=>$sig
-                    )
                 )
-        ));
+            )
+        )
+    );
 };
 
 function sendAsJSON($array){
@@ -41,8 +41,10 @@ function sendAsJSON($array){
 
 function apikeyIsValid($conn,$apikey,$setLogin=true) {
     $esc_apikey = mysqli_real_escape_string($conn,$apikey);
+
     $query = "SELECT * FROM apiKeys WHERE apikey = '$esc_apikey' LIMIT 1";
     $res = mysqli_fetch_array(mysqli_query($conn, $query));
+
     if (!$res){error("incorrect apikey");};
 
     $now = time();
@@ -54,41 +56,56 @@ function apikeyIsValid($conn,$apikey,$setLogin=true) {
 
         //set last login for user if required
         if ($setLogin) {
-            $query = "UPDATE users lastLogin=NOW() WHERE iduser = $userID";
+            $query = "UPDATE users SET lastLogin=NOW() WHERE iduser = $userID";
             mysqli_query($conn,$query);
         };
 
         //set last use for apikey
-        $query = "UPDATE apikeys lastUsed=NOW() WHERE apikey = '$esc_apikey'";
+        $query = "UPDATE apikeys SET lastUsed=NOW() WHERE apikey = '$esc_apikey'";
         mysqli_query($conn,$query);
 
-        return $res["iduser"];
+        return $res;
     }
-    elseif ($from >= $now){
-        error("key not yet valid");
-    }
-    elseif ($to <= $now){
-        error("key expired");
-    }
-    else {
-        error("unknown key error");
-    };
+    elseif ($from >= $now){ error("key not yet valid"); }
+    elseif ($to <= $now){ error("key expired"); }
+    else { error("unknown key error"); };
 };
 
-function getUserFromID($conn,$userID){
-    $userID = mysqli_real_escape_string($conn,$userID);
-    $query = "SELECT * FROM users WHERE iduser = '$userID' LIMIT 1";
+function getUserFromID($conn,$userID) {
+    $query = "SELECT * FROM users WHERE iduser = $userID LIMIT 1";
     $res = mysqli_fetch_array(mysqli_query($conn, $query));
 
     return $res;
 };
 
-function getUserFromUsername($conn,$username){
+function getUserFromUsername($conn,$username) {
     $username = mysqli_real_escape_string($conn,$username);
+
     $query = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
     $res = mysqli_fetch_array(mysqli_query($conn, $query));
 
     return $res;
 };
 
+function getFullNameFromApikey($conn,$apikey) {
+    $esc_apikey = mysqli_real_escape_string($apikey);
+
+    $query = "SELECT appName FROM apiKeys WHERE apikey = '$esc_apikey' LIMIT 1";
+    $appname = mysqli_fetch_array(mysqli_query($conn,$query));
+
+    $user = apikeyIsValid($conn,$apikey,false);
+
+    return $user."/".$appname["appName"];
+};
+
+function getFullNameFromIdApikey($conn,$id) {
+    $query = "SELECT iduser,appName,apikey FROM apiKeys WHERE idapikey = $id LIMIT 1";
+    $res = mysqli_fetch_array(mysqli_query($conn,$query));
+
+    $appname = $res["appName"];
+
+    $user = getUserFromID($conn,$res["iduser"])["username"];
+
+    return $user."-".$appname;
+};
 ?>
