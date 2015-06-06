@@ -2,6 +2,9 @@
 include "common.php";
 
 function main(){
+    //force HTTPS
+    requireHTTPS();
+    
     //load settings
     $settings = parse_ini_file("../configs/config.ini",true);
     //get headers

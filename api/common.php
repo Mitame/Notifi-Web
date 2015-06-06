@@ -1,4 +1,14 @@
 <?php
+
+function requireHTTPS(){
+    if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == ""){
+    $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: $redirect");
+    exit;
+    };
+};
+
 function getHeader($headerKey,$fail=true) {
 	$headerValue = @$_GET[$headerKey];
     if (is_null($headerValue)) {$headerValue = @$headers[$headerKey];};
@@ -99,7 +109,7 @@ function getFullNameFromApikey($conn,$apikey) {
 };
 
 function getFullNameFromIdApikey($conn,$id) {
-    $query = "SELECT iduser,appName,apikey FROM apiKeys WHERE idapikey = $id LIMIT 1";
+    $query = "SELECT i\\duser,appName,apikey FROM apiKeys WHERE idapikey = $id LIMIT 1";
     $res = mysqli_fetch_array(mysqli_query($conn,$query));
 
     $appname = $res["appName"];
