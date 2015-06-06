@@ -35,6 +35,11 @@ function main(){
                        $settings["mysql"]["database"]
                       );
 
+    //return error message if connection is broken.
+    if ($conn->connect_error) {
+        echo $conn->connect_error."\n";
+        error("mysql connection error");
+    };
 
 
     $esc_username = mysqli_real_escape_string($conn,$username);
@@ -47,10 +52,8 @@ function main(){
     };
 
     $query = "INSERT INTO users (username,passHash,apiKeySeed) VALUES ('$username', '$passHash', '$seed')";
-    if (mysqli_query($conn,$query)){
-    	serverMessage("success","user '$username' has been created");
-    };
-
+    mysqli_query($conn,$query);
+    serverMessage("success","user '$username' has been created");
 };
 main();
 exit;	
