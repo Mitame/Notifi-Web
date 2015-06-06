@@ -1,0 +1,21 @@
+
+    // if (is_null($user)){
+    // 	$random = base64_encode(hash("sha256",rand(),true));
+    // 	$query = "INSERT INTO newuserSeeds (seed) VALUES $random";
+    // 	mysqli_query($conn,$query);
+    // 	$query = "SELECT idseed FROM newuserSeeds WHERE seed = $random";
+    // 	$res = mysqli_query($conn,$query);
+    // 	$row = mysqli_fetch_array($res);
+    // 	echo $row["idseed"]." ".$random;
+    // }
+
+
+
+    // $clearuser = mcrypt_decrypt($cipher, $key, $user, mode)
+
+
+    // //return error message if connection is broken.
+    // if ($conn->connect_error) {
+    //     echo $conn->connect_error."\n";
+    //     error("mysql connection error");
+    // };
