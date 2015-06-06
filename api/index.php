@@ -3,7 +3,7 @@ include "common.php";
 
 function main(){
     //load settings
-    $settings = parse_ini_file("config.ini",true);
+    $settings = parse_ini_file("../configs/config.ini",true);
     //get headers
     $headers = apache_request_headers();
 
