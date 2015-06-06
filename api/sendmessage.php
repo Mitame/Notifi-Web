@@ -52,9 +52,9 @@ function main(){
     $query = "INSERT INTO messages (idfromapikey,idToUser,type,message,signigture,fromIP) VALUES ('$idfromapikey','$toUserID','$esc_type','$esc_body','$esc_sig','$fromIP')";
     echo $query."\n";
     $res = mysqli_query($conn,$query);
-    if ($res){
+    if ($res) {
         serverMessage("success","Your message was sucessfully sent.");
-    }else{
+    } else {
         error("unexpected error");
     };
 };
