@@ -9,7 +9,8 @@ function main(){
 
     //check required headers or queries are sent
     $apikey = getHeader("apikey");
-    $method = getHeader("method");
+    $message = getHeader("message");
+    
 
     //connect to mysql server specified in config.ini
     $conn = new mysqli($settings["mysql"]["server"],
