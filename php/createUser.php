@@ -3,7 +3,9 @@
 include "common.php";
 
 function main(){
+	//force HTTPS
 	requireHTTPS();
+
 	//load settings
     $settings = parse_ini_file("../configs/config.ini",true);
     
@@ -45,8 +47,10 @@ function main(){
     };
 
     $query = "INSERT INTO users (username,passHash,apiKeySeed) VALUES ('$username', '$passHash', '$seed')";
-    mysqli_query($conn,$query);
-    echo $query;
+    if (mysqli_query($conn,$query)){
+    	serverMessage("success","user '$username' has been created");
+    };
+
 };
 main();
 exit;	
