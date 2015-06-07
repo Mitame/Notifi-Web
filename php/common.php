@@ -1,6 +1,13 @@
 <?php
 
+$settings = parse_ini_file("../configs/config.ini",true);
+
 function requireHTTPS(){
+    global $settings;
+    if ($settings["server"]["disableHTTPS"]) {
+        return;
+    };
+
     if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == ""){
     $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     header("HTTP/1.1 301 Moved Permanently");
