@@ -1,2 +1,2 @@
-configs/*
-!configs/config.default.ini
+configs/*.ini
+!configs/*.default.ini
