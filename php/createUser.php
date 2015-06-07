@@ -17,7 +17,7 @@ function main(){
     
     if (is_null($auth)){
         $random = hash("sha256",rand());
-        header('WWW-Authenticate: Basic realm="$random"');
+        header('WWW-Authenticate: Basic realm="Enter your preferred username and password."');
         header('HTTP/1.0 401 Unauthorized');
         exit;
     };

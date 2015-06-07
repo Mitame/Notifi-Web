@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Notifi</title>
+		<script src="/3rdparty/js/jquery-2.1.4.min.js"></script>
+		<script src="/3rdparty/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../js/signup.js"></script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+		<link rel="stylesheet" href="../css/global.css"></link>
+		<link rel="stylesheet" href="/3rdparty/bootstrap/css/bootstrap.min.css"></link>
+		<link rel="stylesheet" href="../css/signup.css"></link>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	</head>
+	<body>
+		<div class="container">
+			<div class="col-md-4">
+				<h1>Sign up</h1>
+				<div class="signup">
+
+					<div class="status-holder">
+						<div class="status_msg fail_msg">
+						</div>
+
+						<div class="status_msg pass_msg">
+						</div>
+
+						<div class="status_msg instruct_msg" >Please input a username and strong password.
+						</div>
+					</div>
+
+					<div class="panel panel-default custom-show">
+						<form role="form" id="signup">
+							<table>
+							<div class="form-group">
+								<tr>
+									<td><label class="input-label" for="username">Username: </label></td>
+									<td><input type="text" class="form-input" id="username"></td>
+								</tr>
+							</div>
+							<div class="form-group">
+								<tr>
+									<td><label class="input-label" for="password">Password: </label></td>
+									<td><input type="password" class="form-input" id="password"></td>
+								</tr>
+							</div>
+							<div class="form-group">
+								<tr>
+									<td><label class="input-label" for="password-conf">Confirm password: </label></td>
+									<td><input type="password" class="form-input" id="password-conf"></td>
+								</tr>
+								
+							</div>
+							<tr>
+								<td></td>
+								<td><div class="g-recaptcha" data-sitekey="***SITE_KEY***"></div></td>
+							</tr>
+							<div class="form-footer">
+								<tr>
+									<td></td>
+									<td><button type="submit" class="form-submit">Sign Up</button></td>
+								</tr>
+							</div>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
