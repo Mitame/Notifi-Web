@@ -1,56 +1,90 @@
-.status-holder {
-	margin: 5px auto 5px auto;
-	height: 50px;
-}
-
-.status_msg {
-	padding: 10px;
-	width: 70%;
-	margin: 5px auto 5px auto;
-	border-radius: 3px;
-	text-align: center;
-}
-
-.pass_msg {
+#pass_msg {
 	background-color: #99FF99;
 	border: 2px solid #7ACC52;
 }
 
-.fail_msg {
+#fail_msg {
 	background-color: #FF7070;
 	border: 2px solid #FF3333;
 	font-weight: bold;
 }
 
-.instruct_msg {
+#instruct_msg {
 	background-color: #e5e5e0;
 	border: 2px solid #a5a5a0;
 }
 
+#form-header {
+	margin: 5px auto 0px auto;
+	padding: 0 2em 0 2em;
+	display: block;
+	min-height: 40px;
+	overflow: auto;
+	border-radius: 2em 2em 0em 0em;
+	background-color: #353530;
+}
+
+#form-body {
+	text-align: center;
+	background-color: #d5d5ff;
+}
+
+#form-footer {
+	margin: 0 auto 0 auto;
+	padding: 3px 0 3px 0;
+	text-align: right;
+	background-color: #a5a5a0;
+	border-radius: 0em 0em 1.3em 1.3em;
+}
+
 .form-input {
-	margin: 5px;
-	width: 300px;
+	margin: 2px 0px 4px 0px;
 	font-size: 1em;
+	width: 100%;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 .input-label {
 	text-align: right;
-	width: 150px;
+	width: 100%;
 }
 
-.panel{
-	margin-left: auto;
-	margin-right: auto;
-
-	width: 500px;
-	background-color: #d5d5d0;
+#signup {
+	margin: 0px auto 0px auto;
+	text-align: center;
+	width: 95%;
 }
 
-.signup {
+.inline-status {
+	padding: 2px;
+	margin: 5px 10px 5px 10px;
+	border-radius: 3px;
+	text-align: left;
+	background-color: #e5e5e0;
+	border: 2px solid #a5a5a0;
+}
+
+.inline-error {
+	padding: 2px;
+	margin: 5px 10px 5px 10px;
+	border-radius: 3px;
+	text-align: left;
+	font-weight: bold;
+	background-color: #FF7070;
+	border: 2px solid #FF3333;
+}
+
+.status_msg {
+	padding: 3px;
+	width: 70%;
 	margin: 5px auto 5px auto;
-	background-color: #d5d5ff;
+	border-radius: 3px;
+	text-align: center;
+}
+
+.pass_checkbox {
+	cursor: inherit;
 }
 
 input { /*Input styling*/
