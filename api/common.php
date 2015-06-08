@@ -16,6 +16,17 @@ function requireHTTPS(){
     };
 };
 
+function mysqlConnect() {
+    global $settings;
+
+    return new mysqli($settings["mysql"]["server"],
+                      $settings["mysql"]["username"],
+                      $settings["mysql"]["password"],
+                      $settings["mysql"]["database"]
+                     );
+};
+
+
 function getHeader($headerKey,$fail=true) {
 	$headerValue = @$_GET[$headerKey];
     if (is_null($headerValue)) {$headerValue = @$headers[$headerKey];};
@@ -125,5 +136,24 @@ function getFullNameFromIdApikey($conn,$id) {
 
     return $user."-".$appname;
 };
+
+function verifyRecaptcha($recaptcha){
+    global $settings;
+
+    $data = array("secret" => $settings["recaptcha"]["secret"],
+                  "response" => $recaptcha,
+                  "remoteip" => $_SERVER["REMOTE_ADDR"]
+                  );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+    $result = curl_exec($ch);
+    return json_decode($result);
+}
 ?>
 
