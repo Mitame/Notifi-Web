@@ -15,55 +15,52 @@ function main() {
 	$recaptcha = postHeader("g-recaptcha-response",false);
 
 
+	//return page if headers are missing
 	if (is_null($username) and is_null($password)) {
 		$filecontents = file_get_contents($document);
 		$filecontents = str_replace("***SITE_KEY***", $settings["recaptcha"]["site"], $filecontents);
 		echo $filecontents;
 		exit;
 	}
-	elseif (is_null($username) or $username == "") {
+	
+
+
+	//check inputs
+
+	//check username
+	if (is_null($username) or $username == ""){
 		serverMessage("fail","No username");
 		exit;
 	}
-	elseif (is_null($password) or $password == "") {
-		serverMessage("fail","No password");
+	elseif (preg_match("/[^\x20-\x7E]+|[\<\>]+/", $username)) {
+		serverMessage("fail","Username contains restricted characters.");
 		exit;
 	}
-
-	if (is_null($recaptcha) or $recaptcha == ""){
-		serverMessage("fail","No reCAPTCHA");
+	elseif (strlen($username) > 30) {
+		serverMessage("fail","Username is too long");
 		exit;
 	}
-
-
-	//check recaptcha
-	$data = array("secret" => $settings["recaptcha"]["secret"],
-				  "response" => $recaptcha,
-				  "remoteip" => $_SERVER["REMOTE_ADDR"]
-				  );
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1); // On dev server only!
-	$result = curl_exec($ch);
-	$resjson = json_decode($result);
-	if (!$resjson->success){
-		$detail = $resjson -> error-codes;
-		serverMessage("fail","reCAPTCHA failed. $detail");
+	elseif (strlen($username) < 2) {
+		serverMessage("fail","Username is too short");
 		exit;
 	};
 
+	//check password
+	if (is_null($password) or $password == "") {
+		serverMessage("fail","No username");
+		exit;
+	};
 
-	//connect to mysql server specified in config.ini
-    $conn = new mysqli($settings["mysql"]["server"],
-                       $settings["mysql"]["username"],
-                       $settings["mysql"]["password"],
-                       $settings["mysql"]["database"]
-                      );
+	//check recaptcha
+	$res = verifyRecaptcha($recaptcha);
+	if (!$res->success){
+		serverMessage("fail","reCAPTCHA failed");
+		exit;
+	};
+
+    $conn = mysqlConnect(); 
+
+
 
     //return error message if connection is broken.
     if ($conn->connect_error) {
@@ -71,9 +68,15 @@ function main() {
         error("mysql connection error");
     };
 
+    //check if username is unique
+    $esc_username = mysqli_real_escape_string($conn,$username);
+    $query = "SELECT iduser FROM users WHERE username = '$esc_username' LIMIT 1";
+	if (mysqli_query($conn, $query) -> num_rows > 0){
+		serverMessage("fail","Username is in use.");
+	}
+
     $passHash = base64_encode(hash("sha256",$password,true));
 
-    $esc_username = mysqli_real_escape_string($conn,$username);
     $esc_passHash = mysqli_real_escape_string($conn,$passHash);
     $seed = base64_encode(hash("sha256",rand(),true));
 
@@ -85,7 +88,7 @@ function main() {
 
     $query = "INSERT INTO users (username,passHash,apiKeySeed) VALUES ('$username', '$passHash', '$seed')";
     mysqli_query($conn,$query);
-    serverMessage("success","The user '$username' has been created.");
+    serverMessage("success","The user '$esc_username' has been created.");
 
 };
 
