@@ -85,7 +85,7 @@ $(document).ready(function() {
 	});
 
 	//make status messages dissapear when clicked
-	$(".status_msg:not(#instruct_msg)").click(function() {
+	$(".status_msg:not(#signup-instruct-msg)").click(function() {
 		$(this).slideUp();
 	});
 
