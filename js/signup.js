@@ -1,19 +1,19 @@
 $(document).ready(function() {
 	var form = $("#signup");
-	var pass_box = $("#pass_msg");
-	var fail_box = $("#fail_msg");
+	var pass_box = $("#signup-pass-msg");
+	var fail_box = $("#signup-fail-msg");
 
 	//hide everything
 	fail_box.hide();
 	pass_box.hide();
 
-	$("#form-body").hide()
-	$("#instruct_msg").hide()
+	$("#signup-body").hide()
+	$("#signup-instruct-msg").hide()
 
 	$("#signup").animate({width: 0, opacity: "0"},0)
 	$("#signup").animate({width: "95%", opacity: "1"},1000,function() {
-		$("#form-body").slideDown(1000);
-		$("#instruct_msg").slideDown(1000);
+		$("#signup-body").slideDown(1000);
+		$("#signup-instruct-msg").slideDown(1000);
 	});
 	// $(".form-body").hide().slideDown("slow")
 

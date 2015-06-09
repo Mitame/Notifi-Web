@@ -8,9 +8,9 @@
 		<script src="../js/signup.js"></script>
 		<script src='https://www.google.com/recaptcha/api.js'></script>
 		
-		<link rel="stylesheet" href="/3rdparty/bootstrap/css/bootstrap.min.css"></link>
-		<link rel="stylesheet" href="../css/global.css"></link>
-		<link rel="stylesheet" href="../css/signup.css"></link>
+		<link rel="stylesheet" href="/3rdparty/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/global.css">
+		<link rel="stylesheet" href="../css/signup.css">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	</head>
@@ -21,16 +21,16 @@
 			</div>
 
 			<div id="signup">
-				<div id="form-header">
-					<div class="status_msg" id="fail_msg"></div>
+				<div class="form-header">
+					<div class="status_msg fail_msg" id="signup-fail-msg"></div>
 
-					<div class="status_msg" id="pass_msg"></div>
+					<div class="status_msg pass_msg" id="signup-pass-msg"></div>
 
-					<div class="status_msg" id="instruct_msg" >Please input a username and strong password.</div>
+					<div class="status_msg instruct_msg" id="signup-instruct-msg">Please input a username and strong password.</div>
 				</div>
 				
 				<form role="form">
-					<div id="form-body">
+					<div class="form-body" id="signup-body">
 						<div style="width: 70%; margin: auto" >
 
 							<input type="text" class="form-input" id="username" placeholder="Username">
@@ -67,7 +67,7 @@
 						</div>	
 					</div>
 					
-					<div id="form-footer">
+					<div class="form-footer" id="signup-footer">
 						<div class="container" style="margin: auto 3px auto 3px; width: auto;">
 							<button type="submit" class="form-submit">Sign Up</button>
 						</div>
