@@ -21,32 +21,32 @@
 			</div>
 
 			<div id="signup">
-				<div class="form-header">
-					<div class="status_msg fail_msg" id="signup-fail-msg"></div>
+				<div class="form_header">
+					<div class="status_msg fail_msg" id="signup_fail_msg"></div>
 
-					<div class="status_msg pass_msg" id="signup-pass-msg"></div>
+					<div class="status_msg pass_msg" id="signup_pass_msg"></div>
 
-					<div class="status_msg instruct_msg" id="signup-instruct-msg">Please input a username and strong password.</div>
+					<div class="status_msg instruct_msg" id="signup_instruct_msg">Please input a username and strong password.</div>
 				</div>
 				
 				<form role="form">
-					<div class="form-body" id="signup-body">
+					<div class="form_body" id="signup_body">
 						<div style="width: 70%; margin: auto" >
 
-							<input type="text" class="form-input" id="username" placeholder="Username">
+							<input type="text" class="form_input" id="username" placeholder="Username">
 							
-							<div class="inline-status" id="user_status">Your username should be:<ul>
+							<div class="inline_status" id="user_status">Your username should be:<ul>
 								<li>Unique</li>
 								<li>No more than 30 characters</li>
 								<li>Consisting of only printable ASCII characters</li>
 								<li>Bereft of '<' and '>'</li>
 							</ul>
 							</div>
-							<div class="inline-error" id="user_error"></div>
+							<div class="inline_error" id="user_error"></div>
 
-							<input type="password" class="form-input" id="password" placeholder="Password">
+							<input type="password" class="form_input" id="password" placeholder="Password">
 
-							<div class="inline-status" id="pass_status">Your password should contain: <ul style="list-style-type: none;">
+							<div class="inline_status" id="pass_status">Your password should contain: <ul style="list-style-type: none;">
 								<li><input class="pass_checkbox" type="checkbox" disabled="true"/> More than 8 characters</li>
 								<li><input class="pass_checkbox" type="checkbox" disabled="true"/> More than 16 characters</li>
 								<li><input class="pass_checkbox" type="checkbox" disabled="true"/> Upper case letters</li>
@@ -56,20 +56,20 @@
 
 							</ul>						
 							</div>
-							<div class="inline-error" id="pass_error"></div>
+							<div class="inline_error" id="pass_error"></div>
 
-							<input type="password" class="form-input" id="password-conf" placeholder="Confirm password">
+							<input type="password" class="form_input" id="password_conf" placeholder="Confirm password">
 
-							<div class="inline-status" id="pass_conf_status">Enter your password again to confirm it</div>
-							<div class="inline-error" id="pass_conf_error"></div>
+							<div class="inline_status" id="pass_conf_status">Enter your password again to confirm it</div>
+							<div class="inline_error" id="pass_conf_error"></div>
 
 							<div align="center" class="g-recaptcha" data-sitekey="***SITE_KEY***"></div>
 						</div>	
 					</div>
 					
-					<div class="form-footer" id="signup-footer">
+					<div class="form_footer" id="signup_footer">
 						<div class="container" style="margin: auto 3px auto 3px; width: auto;">
-							<button type="submit" class="form-submit">Sign Up</button>
+							<button type="submit" class="form_submit">Sign Up</button>
 						</div>
 					</div>
 				</form>

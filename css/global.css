@@ -14,7 +14,7 @@
 	border: 2px solid #a5a5a0;
 }
 
-.form-header {
+.form_header {
 	margin: 5px auto 0px auto;
 	padding: 0 2em 0 2em;
 	display: block;
@@ -24,13 +24,13 @@
 	background-color: #353530;
 }
 
-.form-body {
+.form_body {
 	padding: 3px;
 	text-align: center;
 	background-color: #d5d5ff;
 }
 
-.form-footer {
+.form_footer {
 	margin: 0 auto 0 auto;
 	padding: 3px 0 3px 0;
 	text-align: right;
@@ -38,7 +38,7 @@
 	border-radius: 0em 0em 1.3em 1.3em;
 }
 
-.form-input {
+.form_input {
 	margin: 2px 0px 4px 0px;
 	font-size: 1em;
 	width: 100%;
@@ -46,7 +46,7 @@
 	margin-bottom: 5px;
 }
 
-.inline-status {
+.inline_status {
 	padding: 2px;
 	margin: 5px 10px 5px 10px;
 	border-radius: 3px;
@@ -55,7 +55,7 @@
 	border: 2px solid #a5a5a0;
 }
 
-.inline-error {
+.inline_error {
 	padding: 2px;
 	margin: 5px 10px 5px 10px;
 	border-radius: 3px;

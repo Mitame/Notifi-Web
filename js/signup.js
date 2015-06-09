@@ -1,51 +1,68 @@
 $(document).ready(function() {
 	var form = $("#signup");
-	var pass_box = $("#signup-pass-msg");
-	var fail_box = $("#signup-fail-msg");
+	
+	var signup_pass_msg = $("#signup_pass_msg");
+	var signup_fail_msg = $("#signup_fail_msg");
+	var signup_instruct_msg = $("#signup_instruct_msg");
+
+	var inline_user_msg = $("#user_status");
+	var inline_user_error = $("#user_error");
+	var inline_pass_msg = $("#pass_status");
+	var inline_pass_error = $("#pass_error");
+	var inline_pass_conf_msg = $("pass_conf_status");
+	var inline_pass_conf_error = $("pass_conf_status");
+
+	var input_user = $("#username");
+	var input_pass = $("#password");
+	var input_pass_conf = $("#password_conf");
+
+	var signup_body = $("#signup_body");
+	var signup_header = $("#signup_header");
+	var signup_footer = $("#signup_footer");
+
 
 	//hide everything
-	fail_box.hide();
-	pass_box.hide();
+	signup_fail_msg.hide();
+	signup_pass_msg.hide();
 
-	$("#signup-body").hide()
-	$("#signup-instruct-msg").hide()
+	signup_body.hide()
+	signup_instruct_msg.hide()
 
-	$("#signup").animate({width: 0, opacity: "0"},0)
-	$("#signup").animate({width: "95%", opacity: "1"},1000,function() {
-		$("#signup-body").slideDown(1000);
-		$("#signup-instruct-msg").slideDown(1000);
+	form.animate({width: 0, opacity: "0"},0)
+	form.animate({width: "95%", opacity: "1"},1000,function() {
+		signup_body.slideDown(1000);
+		signup_instruct_msg.slideDown(1000);
 	});
-	// $(".form-body").hide().slideDown("slow")
 
-
-	$(".inline-status").hide();
-	$(".inline-error").hide();
+	$(".inline_status").hide();
+	$(".inline_error").hide();
 
 	//make inline instructions appear when text box is in focus
-	$("#username").focusin(function() {
-		$("#user_status").slideDown();
+	input_user.focusin(function() {
+		inline_user_msg.slideDown();
 	});
 
-	$("#username").focusout(function() {
-		$("#user_status").slideUp();
+	input_user.focusout(function() {
+		inline_user_msg.slideUp();
 		var status = checkUsername($(this).val());
 		if (!status[0]) {
-			$("#user_error").text(status[1]);
-			$("#user_error").slideDown();
+			inline_user_error.text(status[1]);
+			inline_user_error.slideDown();
 		}
 		else {
-			$("#user_error").slideUp();
+			inline_user_error.slideUp();
 		};
 	});
 
 
-	$("#password").focusin(function() {
-		$("#pass_status").slideDown();
+	input_pass.focusin(function() {
+		inline_pass_msg.slideDown();
 	});
 
-	$("#password").on("input", function() {
+
+	input_pass.on("input", function() {
 		var checkboxes = document.getElementsByClassName("pass_checkbox")
-		var strength = passwordStrength($("#password").val());
+		var strength = passwordStrength(input_pass.val());
 		
 		// checkboxes[0].checked = true
 
@@ -59,33 +76,33 @@ $(document).ready(function() {
 		};
 	});
 
-	$("#password").focusout(function() {
-		$("#pass_status").slideUp();
-		if ($("#password").val() == ""){
-			$("#pass_error").text("A password must be set").slideDown()
-		} else {$("#pass_error").slideUp()}
+	input_pass.focusout(function() {
+		inline_pass_msg.slideUp();
+		if (input_pass.val() == ""){
+			inline_pass_error.text("A password must be set").slideDown()
+		} else {inline_pass_error.slideUp()}
 	});
 
 
-	$("#password-conf").focusin(function() {
-		$("#pass_conf_status").slideDown();
+	input_pass_conf.focusin(function() {
+		inline_pass_conf_msg.slideDown();
 	});
 
-	$("#password-conf").focusout(function() {
-		$("#pass_conf_status").slideUp();
+	input_pass_conf.focusout(function() {
+		inline_pass_conf_msg.slideUp();
 
-		var confcheck = checkPassConf($("#password").val(),$("#password-conf").val())
+		var confcheck = checkPassConf(input_pass.val(),input_pass_conf.val())
 
 		if (confcheck[0]){
-			$("#pass_conf_error").slideUp();
+			inline_pass_conf_error.slideUp();
 		}
 		else {
-			$("#pass_conf_error").text(confcheck[1]).slideDown()
+			inline_pass_conf_error.text(confcheck[1]).slideDown()
 		}
 	});
 
 	//make status messages dissapear when clicked
-	$(".status_msg:not(#signup-instruct-msg)").click(function() {
+	$(".status_msg:not(#signup_instruct_msg)").click(function() {
 		$(this).slideUp();
 	});
 
@@ -94,18 +111,14 @@ $(document).ready(function() {
 		event.preventDefault();
 
 		var username = $("#username").val();
-		var password = $("#password").val();
-		var password_conf = $("#password-conf").val();
+		var password = input_pass.val();
+		var password_conf = input_pass_conf.val();
 		var captcha = grecaptcha.getResponse();
-
-
-
-		
 
 		var usernameCheck = checkUsername(username)
 		if (!usernameCheck[0]) {
 			hideStatus(500, function() {
-				fail_box.text(usernameCheck[1]).slideDown();
+				signup_fail_msg.text(usernameCheck[1]).slideDown();
 			});
 			return;
 		}
@@ -113,7 +126,7 @@ $(document).ready(function() {
 		var passwordCheck = password.length != 0
 		if (!passwordCheck) {
 			hideStatus(500, function() {
-				fail_box.text("A password must be set.").slideDown();
+				signup_fail_msg.text("A password must be set.").slideDown();
 			});
 			return;	
 		}
@@ -121,14 +134,14 @@ $(document).ready(function() {
 		var confCheck = password == password_conf
 		if (!confCheck){
 			hideStatus(500, function() {
-				fail_box.text("Passwords did not match.").slideDown();
+				signup_fail_msg.text("Passwords did not match.").slideDown();
 			});
 			return;
 		};
 
 		if (grecaptcha.getResponse() == "") {
 			hideStatus(500, function() {
-				fail_box.text("reCAPTCHA not performed.").slideDown();
+				signup_fail_msg.text("reCAPTCHA not performed.").slideDown();
 			});
 			return;
 		}
@@ -143,21 +156,21 @@ $(document).ready(function() {
 			grecaptcha.reset()
 			if (res["messages"][0]["msgType"] == "success"){
 				$("#username").val("");
-				$("#password").val("");
-				$("#password-conf").val("");
+				input_pass.val("");
+				input_pass_conf.val("");
 
 				hideStatus(500, function() {
-					pass_box.text(res["messages"][0]["message"]).slideDown();
+					signup_pass_msg.text(res["messages"][0]["message"]).slideDown();
 				});
 			}
 			else if (res["messages"][0]["msgType"] == "fail") {
 				hideStatus(500, function() {
-				fail_box.text(res["messages"][0]["message"]).slideDown();
+				signup_fail_msg.text(res["messages"][0]["message"]).slideDown();
 				});
 			}
 			else{
 				hideStatus(500, function() {
-					fail_box.text(res).slideDown();
+					signup_fail_msg.text(res).slideDown();
 				});
 			}
 		})
@@ -174,7 +187,7 @@ function checkUsername(username) {
 	// username must be between 2 and 30 characters in length
 	if (!(2 <= username.length && username.length <= 30)) { return [false,"Username must contain between 2 and 30 characters."]; };
 
-	// username must only contain printable ascii characters (\x20-\x7e)
+	// username must only contain printable ascii characters (\x20_\x7e)
 	if (/[^\x20-\z7E]+/.test(username)) { return [false, "Username can only contain printable ASCII characters."]; };
 
 	// username cannot contain < , > or spaces 
